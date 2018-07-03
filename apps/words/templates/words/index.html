@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Survey | Kevin Stradtman</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'words/css/app.css' %}">
+</head>
+<body>
+    
+
+    <!-- As a heading -->
+    <nav class="navbar bg-warning">
+        <span class="navbar-brand mb-0 h1 text-white">Django Words</span>
+    </nav>
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-6 mt-5">
+                <h3>Add a new word...</h3>
+                <form action="/add_word" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="word" class="form-control">
+                    </div>
+                    <div class="form-group radio">
+                        <label for="color">Color</label><br>
+                        <input type="radio" name="color" value="red"><span>Red</span><br>
+                        <input type="radio" name="color" value="green"><span>Green</span><br>
+                        <input type="radio" name="color" value="blue"><span>Blue</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="fonts" value="big"><span>Make text BIG!</span>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-warning btn-lg">
+                </form>
+            </div>
+            <div class="col-lg-6 mt-5">
+                <a href="" class="btn btn-danger btn-block">Clear Session</a>
+                <div class="words">
+                    {% for word in request.session.words %}
+                        <p><span class="{{word.color}} {{word.font}}">{{word.word}}</span> added on {{word.added}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>
